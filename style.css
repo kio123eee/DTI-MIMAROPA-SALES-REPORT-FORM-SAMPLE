@@ -1,0 +1,169 @@
+/* style.css */
+
+/* Modern Reset & Base Styles */
+:root {
+    --primary-color: #140557; /* DTI Blue-Purple */
+    --secondary-color: #007bff; /* Button Blue */
+    --accent-color: #0056b3; /* Darker Button Blue (for hover) */
+    --text-light: #f4f4f4; /* Light text for dark background */
+    --text-dark: #333; /* Dark text for light background */
+    --border-color: #ddd;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: var(--spacing-lg);
+    background-color: #f0f2f5; /* Light grey background */
+    
+    /* --- Centering Styles --- */
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center;   /* Centers content vertically */
+    min-height: 100vh;     /* Ensures body takes full viewport height for vertical centering */
+    /* --- End Centering Styles --- */
+
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+/* Form Container */
+form {
+    background: var(--primary-color);
+    color: var(--text-light);
+    padding: var(--spacing-lg) 30px; /* More padding */
+    border-radius: 12px; /* Slightly more rounded */
+    max-width: 550px; /* Slightly wider */
+    width: 100%; /* Ensure it takes full width up to max-width */
+    box-shadow: 0 8px 16px var(--shadow-medium); /* Deeper shadow */
+    transition: transform 0.3s ease-in-out;
+}
+
+form:hover {
+    transform: translateY(-3px); /* Subtle lift on hover */
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 700; /* Bold heading */
+    letter-spacing: 0.5px;
+    font-size: 1.8em; /* Slightly larger heading */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* Slightly more spacing */
+    font-weight: 600; /* Bolder labels */
+    font-size: 0.95em;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%; /* Full width */
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md); /* Consistent margin */
+    border: 1px solid var(--border-color);
+    border-radius: 6px; /* Slightly more rounded */
+    box-sizing: border-box; /* Include padding in width */
+    font-size: 1em;
+    background-color: #ffffff; /* White input background */
+    color: var(--text-dark); /* Dark text for inputs */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus highlight */
+    outline: none;
+}
+
+/* Customizing Select Arrow */
+select {
+    -webkit-appearance: none; /* Remove default arrow on WebKit browsers */
+    -moz-appearance: none; /* Remove default arrow on Firefox */
+    appearance: none; /* Remove default arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+    cursor: pointer;
+}
+
+/* Button Styling */
+button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    width: 100%; /* Full width button */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-light);
+}
+
+button:hover {
+    background-color: var(--accent-color); /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 6px 12px var(--shadow-medium);
+}
+
+button:active {
+    transform: translateY(0); /* Press effect */
+    box-shadow: 0 2px 4px var(--shadow-light);
+}
+
+/* Form Status Messages */
+#formStatus {
+    margin-top: var(--spacing-md);
+    font-weight: bold;
+    text-align: center;
+    padding: var(--spacing-sm);
+    border-radius: 4px;
+}
+
+.success {
+    color: var(--success-color);
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.error {
+    color: var(--error-color);
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    form {
+        padding: var(--spacing-lg) var(--spacing-md); /* Adjust padding for smaller screens */
+        margin: var(--spacing-md) auto; /* Add margin to prevent sticking to edges, keep auto for horizontal centering */
+    }
+    h2 {
+        font-size: 1.5em; /* Smaller heading on small screens */
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    button {
+        padding: var(--spacing-sm); /* Slightly less padding on inputs/buttons */
+    }
+}

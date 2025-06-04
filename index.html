@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTI MIMAROPA Sales Report Form</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <form id="salesReportForm">
+        <h2>DTI MIMAROPA SALES REPORT FORM</h2>
+        
+        <label for="Encoder">Encoder:</label>
+        <select name="Encoder" id="Encoder">
+            <option value="Teespiritu">Teespiritu</option>
+            <option value="Jdlaxamana">Jdlaxamana</option>
+            <option value="Mdcruz">Mdcruz</option>
+            <option value="Sgarniel">Sgarniel</option>
+            <option value="Mparilla">Mparilla</option>
+            <option value="Ssantos">Ssantos</option>
+            <option value="Mdelliro">Mdelliro</option>
+            <option value="Jrufon">Jrufon</option> 
+            <option value="Kisla">Kisla</option>
+            <option value="Ymendoza">Ymendoza</option>
+            <option value="Gfontelo">Gfontelo</option>
+            <option value="Mguerrero">Mguerrero</option>
+        </select>
+        
+        <br><br>
+        
+        <label for="MSME_ID_No">MSME ID No:</label>
+        <input type="text" id="MSME_ID_No" name="MSME ID No" required>
+        
+        <br><br>
+
+        <label for="MSME_Name">MSME Name:</label>
+        <input type="text" id="MSME_Name" name="MSME Name" required>
+        
+        <br><br>
+
+        <label for="Province">Province:</label>
+        <input type="text" id="Province" name="Province" required>
+        
+        <br><br>
+
+        <label for="District">District:</label>
+        <input type="text" id="District" name="District" required>
+        
+        <br><br>
+
+        <label for="Category">Category:</label>
+        <select name="Category" id="Category">
+            <option value="Trade Fair">Trade Fair</option>
+            <option value="Market Matching">Market Matching</option>
+            <option value="Trade House">Trade House</option>
+        </select>
+        
+        <br><br>
+        
+        <label for="Event_Date">Event Date:</label>
+        <input type="date" id="Event_Date" name="Event_Date" required>
+        
+        <br><br>
+
+        <label for="Event_Name">Event Name:</label>
+        <input type="text" id="Event_Name" name="Event_Name" required>
+        
+        <br><br>
+
+        <label for="Particulars">Particulars:</label>
+        <input type="text" id="Particulars" name="Particulars" required>
+        
+        <br><br>
+
+        <label for="Scope">Scope:</label>
+        <input type="text" id="Scope" name="Scope" required>
+        
+        <br><br>
+
+        <label for="Amount">Amount:</label>
+        <input type="number" id="Amount" name="Amount" required>
+        
+        <br><br>
+
+        <label for="Program_Type">Program:</label>
+        <select name="Program_Type" id="Program_Type">
+            <option value="CARP">CARP</option>
+            <option value="CFIDP">CFIDP</option>
+            <option value="OTOP">OTOP</option>
+            <option value="SSF">SSF</option>
+        </select>
+
+        <br><br>
+        
+        <button type="submit">Submit Report</button>
+        <p id="formStatus"></p>
+    </form>
+    
+    <script>
+        const form = document.getElementById('salesReportForm');
+        const formStatus = document.getElementById('formStatus');
+
+        // IMPORTANT: Replace with YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
+        // Example: const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycb.../exec';
+        const WEB_APP_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            formStatus.textContent = 'Submitting...';
+            formStatus.className = ''; // Clear previous status class
+
+            const formData = new FormData(form);
+            const data = {};
+            // Convert FormData to a plain object
+            // This loop correctly captures the values from your form fields
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            try {
+                // The 'no-cors' mode is necessary for Google Apps Script to work directly from the client.
+                // However, it means you won't get a proper success/error response *from the fetch call itself*.
+                // For a more robust client-side response, consider adding a custom success/error flag in Apps Script.
+                const response = await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Assume success if no network error occurred.
+                formStatus.textContent = 'Report submitted successfully!';
+                formStatus.className = 'success';
+                form.reset(); // Clear the form
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                formStatus.textContent = 'Error submitting report. Please try again.';
+                formStatus.className = 'error';
+            }
+        });
+    </script>
+</body>
+</html>
